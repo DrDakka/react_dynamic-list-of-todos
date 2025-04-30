@@ -73,7 +73,6 @@ export const App: React.FC = () => {
             </div>
 
             <div className="block">
-              {loaderIsVisible && <Loader />}
               {loaderIsVisible ? (
                 <Loader />
               ) : (
