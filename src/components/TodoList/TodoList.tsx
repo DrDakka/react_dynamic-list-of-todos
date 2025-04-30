@@ -4,9 +4,10 @@ import { Todo } from '../../types/Todo';
 type Props = {
   todos: Todo[];
   onSelect: (todo: Todo) => void;
+  selected: number | null;
 };
 
-export const TodoList: React.FC<Props> = ({ todos, onSelect }) => {
+export const TodoList: React.FC<Props> = ({ todos, onSelect, selected }) => {
   return (
     <table className="table is-narrow is-fullwidth">
       <thead>
@@ -27,39 +28,39 @@ export const TodoList: React.FC<Props> = ({ todos, onSelect }) => {
           const { id, title, completed } = todo;
 
           return (
-            <>
-              <tr key={id} data-cy="todo" className="">
-                <td className="is-vcentered">{id}</td>
-                <td className="is-vcentered">
-                  {completed && (
-                    <span className="icon" data-cy="iconCompleted">
-                      <i className="fas fa-check" />
-                    </span>
-                  )}
-                </td>
-                <td className="is-vcentered is-expanded">
-                  <p
-                    className={
-                      completed ? 'has-text-success' : 'has-text-danger'
-                    }
-                  >
-                    {title}
-                  </p>
-                </td>
-                <td className="has-text-right is-vcentered">
-                  <button
-                    data-cy="selectButton"
-                    className="button"
-                    type="button"
-                    onClick={() => onSelect(todo)}
-                  >
-                    <span className="icon">
-                      <i className="far fa-eye" />
-                    </span>
-                  </button>
-                </td>
-              </tr>
-            </>
+            <tr key={id} data-cy="todo" className="">
+              <td className="is-vcentered">{id}</td>
+              <td className="is-vcentered">
+                {completed && (
+                  <span className="icon" data-cy="iconCompleted">
+                    <i className="fas fa-check" />
+                  </span>
+                )}
+              </td>
+              <td className="is-vcentered is-expanded">
+                <p
+                  className={completed ? 'has-text-success' : 'has-text-danger'}
+                >
+                  {title}
+                </p>
+              </td>
+              <td className="has-text-right is-vcentered">
+                <button
+                  data-cy="selectButton"
+                  className="button"
+                  type="button"
+                  onClick={() => onSelect(todo)}
+                >
+                  <span className="icon">
+                    <i
+                      className={
+                        selected === id ? 'far fa-eye-slash' : 'far fa-eye'
+                      }
+                    />
+                  </span>
+                </button>
+              </td>
+            </tr>
           );
         })}
       </tbody>
